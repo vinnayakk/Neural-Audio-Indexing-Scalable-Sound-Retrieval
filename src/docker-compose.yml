@@ -1,0 +1,39 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Duck1Teddy#Open
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      # - "9600:9600"
+    # volumes:
+    #   - openseach-data:/usr/share/opensearch/data
+
+  streamlit-ui:
+    build:
+      context: ./streamlit-ui
+      dockerfile: Dockerfile
+    container_name: streamlit-ui
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit-ui:/app
+
+  tagging:
+    build:
+      context: ./tagging
+      dockerfile: Dockerfile
+    container_name: tagging
+    ports:
+      - "8000:8000"
