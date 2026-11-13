@@ -184,7 +184,7 @@ async def process_audio_api(file: UploadFile = File(...)):
               "method": {
                 "name": "hnsw", 
                 "space_type": "l2",
-                "engine": "nmslib",
+                "engine": "faiss",
                 "parameters": {
                   "ef_construction": 128,
                   "m": 16

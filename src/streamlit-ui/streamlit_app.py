@@ -240,7 +240,7 @@ def index_audio():
                         st.data_editor(df, on_change=None, num_rows="dynamic", hide_index=True)
                     
             else:
-                st.write("Error: Unable to tag the file.")  # Handle tagging API errors
+                st.error(f"Error: Unable to tag the file ({tagging_response.status_code}): {tagging_response.text}")  # Handle tagging API errors
     else:
         st.error("No file is provided")  # Handle the initial state before any file is uploaded
 
